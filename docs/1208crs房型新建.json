@@ -1,0 +1,68 @@
+[
+    {
+        "name": "新建房型1",
+        "version": 1,
+        "summary": "新建房型1",
+        "preconditions": "笔记123",
+        "execution_type": 1,
+        "importance": 1,
+        "estimated_exec_duration": 3,
+        "status": 7,
+        "result": 0,
+        "steps": [
+            {
+                "step_number": 1,
+                "actions": "CRS后台房型绑定页面，点击新建房型按钮1",
+                "expectedresults": "跳转到新建房型页面1",
+                "execution_type": 1,
+                "result": 0
+            }
+        ],
+        "product": "crs房型新建",
+        "suite": "新建房型"
+    },
+    {
+        "name": "是否有效筛选",
+        "version": 1,
+        "summary": "是否有效筛选",
+        "preconditions": "无",
+        "execution_type": 1,
+        "importance": 1,
+        "estimated_exec_duration": 3,
+        "status": 7,
+        "result": 0,
+        "steps": [
+            {
+                "step_number": 1,
+                "actions": "1、筛选项：全部/有效/无效",
+                "expectedresults": "1、可根据房型是否有效，进行筛选操作，结果符合预期",
+                "execution_type": 1,
+                "result": 0
+            }
+        ],
+        "product": "crs房型新建",
+        "suite": "房型绑定解绑筛选"
+    },
+    {
+        "name": "已绑定列表文案改名",
+        "version": 1,
+        "summary": "已绑定列表文案改名",
+        "preconditions": "无",
+        "execution_type": 1,
+        "importance": 1,
+        "estimated_exec_duration": 3,
+        "status": 7,
+        "result": 0,
+        "steps": [
+            {
+                "step_number": 1,
+                "actions": "1、进入房型列表页面",
+                "expectedresults": "1、顶部tab已绑定房型文案改名为：哈啰房型",
+                "execution_type": 1,
+                "result": 0
+            }
+        ],
+        "product": "crs房型新建",
+        "suite": "房型绑定解绑筛选"
+    }
+]
