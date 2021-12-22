@@ -20,8 +20,6 @@ def xmind_to_testsuites(xmind_content_dict):
         logging.debug('start to parse a sheet: %s', sheet['title'])
         root_topic = sheet['topic']
         sub_topics = root_topic.get('topics', [])
-        print('root_topic:', root_topic)
-        print('sub_topics:', sub_topics)
 
         if sub_topics:
             root_topic['topics'] = filter_empty_or_ignore_topic(sub_topics)
@@ -129,7 +127,7 @@ def parse_a_testcase(case_dict, parent):
     testcase.name = gen_testcase_title(topics)
     # 用例前置条件 'note'
     preconditions = gen_testcase_preconditions(topics)
-    testcase.preconditions = preconditions if preconditions else '无'  # 摘要暂时先用字段 callout, 日常htp平台暂时也不经常写摘要
+    testcase.preconditions = preconditions if preconditions else '无'
     summary = gen_testcase_summary(topics)
     # 如果摘要不存在，用摘要填充用例名称
     testcase.summary = summary if summary else testcase.name
@@ -214,6 +212,7 @@ def gen_testcase_preconditions(topics):
 
 def gen_testcase_summary(topics):
     # 旧版本的 xmind 可以评论 comment, TestCase 的摘要通过评论定义，但是新的 xmind 把评论字段删除了
+    # 摘要暂时先用字段 callout, 日常htp平台暂时也不经常写摘要
     callouts = [topic['callout'] for topic in topics]
     callouts = filter_empty_or_ignore_element(callouts)
     return config['summary_sep'].join(callouts)
