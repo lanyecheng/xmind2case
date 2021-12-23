@@ -127,14 +127,16 @@ def parse_a_testcase(case_dict, parent):
     testcase.name = gen_testcase_title(topics)
     # 用例前置条件 'note'
     preconditions = gen_testcase_preconditions(topics)
-    testcase.preconditions = preconditions if preconditions else '无'
+    # 如果前置条件不存在 ''
+    testcase.preconditions = preconditions if preconditions else ''
+    # 摘要目前用的是xmind的标注字段 callout
     summary = gen_testcase_summary(topics)
     # 如果摘要不存在，用摘要填充用例名称
     testcase.summary = summary if summary else testcase.name
     # 设置用例类型，简单修改了下
     testcase.execution_type = get_execution_type(topics)
     # 用例等级
-    testcase.importance = get_priority(case_dict) or 2
+    testcase.importance = get_priority(case_dict)
 
     step_dict_list = case_dict.get('topics', [])
     if step_dict_list:
@@ -168,13 +170,12 @@ def get_priority(case_dict):
 
 def get_execution_type(topics):
     labels = [topic.get('labels', '') for topic in topics]
-
-    # 这里由于 xmindparser 包返回的 labels 是列表、而 xmind 是字符串，这里简单处理下
-    if labels[0]:
+    # 这里由于 xmindparser 包返回的 labels 是列表、而 xmind包 是字符串，这里简单处理下
+    labels = [x for x in labels if x is not None]
+    # labels = filter_empty_or_ignore_element(labels)
+    if labels:
         labels = labels[0]
-    labels = filter_empty_or_ignore_element(labels)
     exe_type = 1
-
     for item in labels[::-1]:
         if item.lower() in ['冒烟用例']:
             exe_type = 2
@@ -212,7 +213,7 @@ def gen_testcase_preconditions(topics):
 
 def gen_testcase_summary(topics):
     # 旧版本的 xmind 可以评论 comment, TestCase 的摘要通过评论定义，但是新的 xmind 把评论字段删除了
-    # 摘要暂时先用字段 callout, 日常htp平台暂时也不经常写摘要
+    # 摘要暂时先用字段 callout 标注 日常htp平台暂时也不经常写摘要
     callouts = [topic['callout'] for topic in topics]
     callouts = filter_empty_or_ignore_element(callouts)
     return config['summary_sep'].join(callouts)
