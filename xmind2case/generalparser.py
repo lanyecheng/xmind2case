@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # _*_ coding:utf-8 _*_
 import logging
-from metadata import TestSuite, TestCase, TestStep
+from xmind2case.metadata import TestSuite, TestCase, TestStep
 
 config = {
     'sep': ' ',
